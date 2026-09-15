@@ -1,0 +1,1427 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Jeascelle Papa is a video editor and graphic designer creating engaging short-form videos, social media content, motion graphics, and digital visuals."
+    />
+    <meta name="theme-color" content="#f4f0e8" />
+    <title>Jeascelle Papa — Video Editor & Graphic Designer</title>
+    <style>
+      :root {
+        --ink: #171719;
+        --muted: #68666f;
+        --paper: #f4f0e8;
+        --surface: #fbf9f4;
+        --purple: #7757d6;
+        --lilac: #d9cff8;
+        --pink: #f1b6ce;
+        --lime: #d9f275;
+        --line: rgba(23, 23, 25, 0.14);
+        --shadow: 0 24px 70px rgba(37, 29, 54, 0.12);
+        --radius: 28px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at 8% 10%,
+            rgba(217, 207, 248, 0.72),
+            transparent 26rem
+          ),
+          radial-gradient(
+            circle at 94% 34%,
+            rgba(241, 182, 206, 0.42),
+            transparent 24rem
+          ),
+          var(--paper);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      body.menu-open,
+      body.modal-open {
+        overflow: hidden;
+      }
+      img {
+        display: block;
+        max-width: 100%;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+      }
+      ::selection {
+        color: #fff;
+        background: var(--purple);
+      }
+      .skip {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 1000;
+        padding: 10px 14px;
+        color: #fff;
+        background: var(--ink);
+        border-radius: 99px;
+        transform: translateY(-160%);
+      }
+      .skip:focus {
+        transform: none;
+      }
+      .shell {
+        width: min(1180px, calc(100% - 40px));
+        margin: auto;
+      }
+      .section {
+        padding: 112px 0;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin: 0 0 18px;
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .eyebrow:before {
+        content: "";
+        width: 26px;
+        height: 2px;
+        background: currentColor;
+      }
+      .title {
+        max-width: 800px;
+        margin: 0;
+        font-size: clamp(2.5rem, 6vw, 5.6rem);
+        line-height: 0.96;
+        letter-spacing: -0.065em;
+        font-weight: 850;
+      }
+      .accent {
+        color: var(--purple);
+      }
+      header {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 100;
+        transition: 0.25s;
+      }
+      header.scrolled {
+        background: rgba(244, 240, 232, 0.88);
+        box-shadow: 0 1px 0 var(--line);
+        backdrop-filter: blur(18px);
+      }
+      .nav {
+        height: 78px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 850;
+        letter-spacing: -0.04em;
+      }
+      .mark {
+        display: grid;
+        width: 34px;
+        height: 34px;
+        place-items: center;
+        color: #fff;
+        background: var(--ink);
+        border-radius: 50%;
+        font: italic 700 18px Georgia;
+      }
+      .links {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        font-size: 0.89rem;
+        font-weight: 700;
+      }
+      .links a:not(.nav-cta) {
+        position: relative;
+      }
+      .links a:not(.nav-cta):after {
+        content: "";
+        position: absolute;
+        inset: auto 0 -6px;
+        height: 2px;
+        background: var(--purple);
+        transform: scaleX(0);
+        transition: 0.22s;
+      }
+      .links a:hover:after {
+        transform: scaleX(1);
+      }
+      .nav-cta,
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 22px;
+        border: 1px solid var(--ink);
+        border-radius: 99px;
+        font-weight: 800;
+        transition: 0.2s;
+      }
+      .nav-cta {
+        min-height: 42px;
+        color: #fff;
+        background: var(--ink);
+      }
+      .nav-cta:hover,
+      .button:hover {
+        transform: translateY(-3px);
+        box-shadow: 5px 6px 0 var(--purple);
+      }
+      .menu {
+        display: none;
+        width: 46px;
+        height: 46px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: var(--surface);
+        cursor: pointer;
+      }
+      .menu span,
+      .menu:before,
+      .menu:after {
+        content: "";
+        display: block;
+        width: 18px;
+        height: 2px;
+        margin: 4px auto;
+        background: var(--ink);
+        transition: 0.2s;
+      }
+      .menu[aria-expanded="true"] span {
+        opacity: 0;
+      }
+      .menu[aria-expanded="true"]:before {
+        transform: translateY(6px) rotate(45deg);
+      }
+      .menu[aria-expanded="true"]:after {
+        transform: translateY(-6px) rotate(-45deg);
+      }
+      .hero {
+        min-height: 100svh;
+        padding: 132px 0 72px;
+        display: grid;
+        align-items: center;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 72px;
+        align-items: center;
+      }
+      .available {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        padding: 8px 13px;
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        background: #fbf9f4a3;
+        font-size: 0.77rem;
+        font-weight: 750;
+      }
+      .available i {
+        width: 8px;
+        height: 8px;
+        background: #60a952;
+        border-radius: 50%;
+        box-shadow: 0 0 0 5px #60a95226;
+      }
+      .hero h1 {
+        max-width: 760px;
+        margin: 26px 0;
+        font-size: clamp(4rem, 8.2vw, 7.6rem);
+        line-height: 0.84;
+        letter-spacing: -0.08em;
+        font-weight: 900;
+      }
+      .hero h1 span {
+        display: block;
+        color: var(--purple);
+        font-family: Georgia, serif;
+        font-style: italic;
+        font-weight: 500;
+      }
+      .hero-copy {
+        max-width: 640px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.3rem);
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 13px;
+        margin-top: 34px;
+      }
+      .button.primary {
+        color: #fff;
+        background: var(--ink);
+      }
+      .button.secondary {
+        background: transparent;
+      }
+      .arrow {
+        font-size: 1.2em;
+        transition: 0.2s;
+      }
+      .button:hover .arrow {
+        transform: translate(3px, -3px);
+      }
+      .hero-art {
+        position: relative;
+        min-height: 580px;
+      }
+      .portrait {
+        position: absolute;
+        inset: 28px 22px 54px 42px;
+        overflow: hidden;
+        border: 1px solid #17171933;
+        border-radius: 180px 180px 32px 32px;
+        background: var(--lilac);
+        box-shadow: var(--shadow);
+        transform: rotate(2deg);
+      }
+      .portrait img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: saturate(0.82) contrast(1.02);
+      }
+      .portrait:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, #2c184840, transparent 40%);
+      }
+      .note {
+        position: absolute;
+        z-index: 2;
+        padding: 16px 19px;
+        border: 1px solid var(--ink);
+        background: var(--lime);
+        box-shadow: 5px 6px 0 var(--ink);
+        font-size: 0.8rem;
+        font-weight: 850;
+        line-height: 1.35;
+        text-transform: uppercase;
+        transform: rotate(-5deg);
+      }
+      .note.one {
+        top: 10px;
+        right: -4px;
+      }
+      .note.two {
+        bottom: 20px;
+        left: 0;
+        background: var(--surface);
+        transform: rotate(4deg);
+      }
+      .scribble {
+        position: absolute;
+        right: -35px;
+        bottom: 55px;
+        width: 130px;
+        height: 130px;
+        border: 3px solid var(--purple);
+        border-radius: 48% 52% 58% 42%;
+        transform: rotate(22deg);
+        opacity: 0.5;
+      }
+      .marquee {
+        overflow: hidden;
+        color: #fff;
+        background: var(--ink);
+      }
+      .track {
+        display: flex;
+        width: max-content;
+        animation: move 24s linear infinite;
+      }
+      .marquee-group {
+        display: flex;
+        flex-shrink: 0;
+        gap: 30px;
+        padding: 18px 15px;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .marquee-group span:after {
+        content: "✦";
+        margin-left: 30px;
+        color: var(--lime);
+      }
+      @keyframes move {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .about-grid,
+      .cap-grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 90px;
+        align-items: start;
+      }
+      .sticky {
+        position: sticky;
+        top: 120px;
+      }
+      .about-copy {
+        display: grid;
+        gap: 18px;
+      }
+      .about-copy > p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+      .value {
+        display: grid;
+        grid-template-columns: 58px 1fr;
+        gap: 18px;
+        padding: 26px 0;
+        border-top: 1px solid var(--line);
+      }
+      .value:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .num {
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--lilac);
+        font-weight: 850;
+      }
+      .value:nth-of-type(2) .num {
+        background: var(--pink);
+      }
+      .value:nth-of-type(3) .num {
+        background: var(--lime);
+      }
+      .value h3 {
+        margin: 0 0 5px;
+      }
+      .value p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .work {
+        color: #f7f3eb;
+        background: var(--ink);
+      }
+      .work .eyebrow {
+        color: #bdb8c7;
+      }
+      .work-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 40px;
+      }
+      .intro {
+        max-width: 580px;
+        margin: 28px 0 0;
+        color: #aaa5b2;
+        font-size: 1.08rem;
+      }
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 36px;
+      }
+      .filter {
+        padding: 10px 16px;
+        color: #d3cfda;
+        border: 1px solid #ffffff33;
+        border-radius: 99px;
+        background: transparent;
+        cursor: pointer;
+        font-size: 0.8rem;
+        font-weight: 750;
+      }
+      .filter:hover,
+      .filter.active {
+        color: var(--ink);
+        border-color: var(--lime);
+        background: var(--lime);
+      }
+      .projects {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 24px;
+        margin-top: 48px;
+      }
+      .project {
+        grid-column: span 7;
+      }
+      .project:nth-child(2),
+      .project:nth-child(3) {
+        grid-column: span 5;
+      }
+      .project:nth-child(4) {
+        grid-column: span 7;
+      }
+      .project[hidden] {
+        display: none;
+      }
+      .project button {
+        width: 100%;
+        padding: 0;
+        color: inherit;
+        border: 0;
+        background: transparent;
+        text-align: left;
+        cursor: pointer;
+      }
+      .media {
+        position: relative;
+        overflow: hidden;
+        aspect-ratio: 16/11;
+        border-radius: var(--radius);
+        background: #29282d;
+      }
+      .media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .project button:hover img {
+        transform: scale(1.045);
+      }
+      .index {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        display: grid;
+        width: 43px;
+        height: 43px;
+        place-items: center;
+        color: var(--ink);
+        background: #fbf9f4eb;
+        border-radius: 50%;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+      .project-meta {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 18px 3px 8px;
+      }
+      .project-meta h3 {
+        margin: 0 0 4px;
+        font-size: clamp(1.25rem, 2.3vw, 1.75rem);
+        letter-spacing: -0.035em;
+      }
+      .project-meta p {
+        margin: 0;
+        color: #aaa5b2;
+        font-size: 0.86rem;
+      }
+      .project-arrow {
+        font-size: 1.6rem;
+        transition: 0.2s;
+      }
+      .project button:hover .project-arrow {
+        transform: translate(4px, -4px);
+        color: var(--lime);
+      }
+      .cap-grid {
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 80px;
+      }
+      .cap-list {
+        margin-top: 46px;
+        border-top: 1px solid var(--line);
+      }
+      .capability {
+        display: grid;
+        grid-template-columns: 54px 1fr auto;
+        align-items: center;
+        gap: 18px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .capability strong {
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        letter-spacing: -0.025em;
+      }
+      .capability span {
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .tools {
+        padding: 34px;
+        border-radius: var(--radius);
+        background: var(--lilac);
+        transform: rotate(1deg);
+        box-shadow: var(--shadow);
+      }
+      .tools h3 {
+        margin: 0 0 22px;
+        font-size: 1.55rem;
+      }
+      .tool-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .tool-cloud span {
+        padding: 11px 14px;
+        border: 1px solid #1717192e;
+        border-radius: 99px;
+        background: #ffffff7a;
+        font-size: 0.85rem;
+        font-weight: 750;
+      }
+      .process {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin-top: 26px;
+      }
+      .process div {
+        padding: 22px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+      }
+      .process small {
+        color: var(--purple);
+        font-weight: 850;
+      }
+      .process h4 {
+        margin: 16px 0 7px;
+      }
+      .process p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.84rem;
+      }
+      .contact {
+        padding: 80px 0;
+      }
+      .contact-card {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(36px, 8vw, 90px);
+        color: #fff;
+        background: var(--purple);
+        border-radius: clamp(28px, 5vw, 54px);
+      }
+      .contact-card:before {
+        content: "✦";
+        position: absolute;
+        right: 6%;
+        top: -22%;
+        color: #ffffff1f;
+        font-size: 22rem;
+        line-height: 1;
+      }
+      .contact-card h2 {
+        max-width: 850px;
+        margin: 0;
+        font-size: clamp(3rem, 7vw, 6.5rem);
+        line-height: 0.92;
+        letter-spacing: -0.07em;
+      }
+      .contact-card p {
+        max-width: 580px;
+        margin: 28px 0 34px;
+        color: #ffffffc7;
+        font-size: 1.05rem;
+      }
+      .contact-card .button {
+        border-color: #fff;
+      }
+      .contact-card .primary {
+        color: var(--ink);
+        background: var(--lime);
+        border-color: var(--lime);
+      }
+      .contact-card .secondary {
+        color: #fff;
+      }
+      footer {
+        padding: 30px 0 44px;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: var(--muted);
+        font-size: 0.83rem;
+      }
+      .footer a {
+        color: var(--ink);
+        font-weight: 750;
+      }
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 300;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background: #121017b8;
+        backdrop-filter: blur(12px);
+      }
+      .modal[hidden] {
+        display: none;
+      }
+      .panel {
+        position: relative;
+        width: min(880px, 100%);
+        max-height: 90vh;
+        overflow: auto;
+        border-radius: 30px;
+        background: var(--surface);
+        box-shadow: 0 30px 100px #0006;
+      }
+      .close {
+        position: absolute;
+        z-index: 2;
+        top: 16px;
+        right: 16px;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 0;
+        border-radius: 50%;
+        background: #ffffffe8;
+        cursor: pointer;
+        font-size: 1.35rem;
+      }
+      .modal-image {
+        width: 100%;
+        aspect-ratio: 16/8;
+        object-fit: cover;
+      }
+      .modal-body {
+        padding: clamp(26px, 5vw, 50px);
+      }
+      .kicker {
+        margin: 0 0 12px;
+        color: var(--purple);
+        font-size: 0.75rem;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .modal h3 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 4rem);
+        line-height: 1;
+        letter-spacing: -0.055em;
+      }
+      .description {
+        max-width: 700px;
+        margin: 22px 0;
+        color: var(--muted);
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .tags span {
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        font-size: 0.76rem;
+        font-weight: 750;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.65s,
+          transform 0.65s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+      :focus-visible {
+        outline: 3px solid var(--purple);
+        outline-offset: 4px;
+      }
+      @media (max-width: 900px) {
+        .section {
+          padding: 86px 0;
+        }
+        .links {
+          position: fixed;
+          inset: 0;
+          display: none;
+          flex-direction: column;
+          justify-content: center;
+          gap: 28px;
+          background: var(--paper);
+          font-size: 1.5rem;
+        }
+        .links.open {
+          display: flex;
+        }
+        .menu {
+          position: relative;
+          z-index: 2;
+          display: block;
+        }
+        .hero-grid,
+        .about-grid,
+        .cap-grid {
+          grid-template-columns: 1fr;
+          gap: 54px;
+        }
+        .hero {
+          min-height: auto;
+        }
+        .hero-art {
+          width: min(520px, 100%);
+          min-height: 560px;
+          margin: auto;
+        }
+        .sticky {
+          position: static;
+        }
+        .work-head {
+          display: block;
+        }
+        .project,
+        .project:nth-child(2),
+        .project:nth-child(3),
+        .project:nth-child(4) {
+          grid-column: span 6;
+        }
+      }
+      @media (max-width: 640px) {
+        .shell {
+          width: calc(100% - 28px);
+        }
+        .section {
+          padding: 72px 0;
+        }
+        .hero {
+          padding-top: 112px;
+        }
+        .hero h1 {
+          font-size: clamp(3.5rem, 18vw, 5.4rem);
+        }
+        .actions .button {
+          width: 100%;
+        }
+        .hero-art {
+          min-height: 450px;
+        }
+        .portrait {
+          inset: 22px 13px 45px 24px;
+        }
+        .note {
+          padding: 12px 14px;
+          font-size: 0.68rem;
+        }
+        .projects {
+          display: block;
+        }
+        .project + .project {
+          margin-top: 34px;
+        }
+        .capability {
+          grid-template-columns: 42px 1fr;
+        }
+        .capability > span:last-child {
+          grid-column: 2;
+        }
+        .process {
+          grid-template-columns: 1fr;
+        }
+        .contact-card {
+          padding: 36px 24px;
+        }
+        .contact-card .button {
+          width: 100%;
+        }
+        .footer {
+          flex-direction: column;
+        }
+        .modal {
+          padding: 10px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *:before,
+        *:after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header id="header">
+      <div class="shell nav">
+        <a class="brand" href="#top" aria-label="Jeascelle Papa, home"
+          ><span class="mark">J</span><span>Jeascelle.</span></a
+        >
+        <nav class="links" id="links" aria-label="Main navigation">
+          <a href="#about">About</a><a href="#work">Experience</a
+          ><a href="#capabilities">Capabilities</a
+          ><a class="nav-cta" href="#contact">Let’s talk ↗</a>
+        </nav>
+        <button
+          class="menu"
+          id="menu"
+          type="button"
+          aria-expanded="false"
+          aria-controls="links"
+          aria-label="Open menu"
+        >
+          <span></span>
+        </button>
+      </div>
+    </header>
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="shell hero-grid">
+          <div class="reveal">
+            <div class="available"><i></i> Available for select projects</div>
+            <h1>Stories, made <span>impossible to skip.</span></h1>
+            <p class="hero-copy">
+              I’m Jeascelle Papa, a video editor and graphic designer creating
+              engaging short-form videos, social content, promotional edits,
+              and platform-ready digital visuals.
+            </p>
+            <div class="actions">
+              <a class="button primary" href="#work"
+                >See experience <span class="arrow">↗</span></a
+              ><a
+                class="button secondary"
+                href="Ryza%20mae.pdf"
+                target="_blank"
+                >View portfolio PDF ↓</a
+              >
+            </div>
+          </div>
+          <div class="hero-art reveal" aria-label="Portrait of Jeascelle Papa">
+            <div class="portrait">
+              <img
+                src="aa00b326-f06c-4d86-a497-f5abe7efb8ef.jpg"
+                alt="Jeascelle Papa, video editor and graphic designer"
+                width="900"
+                height="1100"
+              />
+            </div>
+            <div class="note one">Edit with<br />energy + purpose</div>
+            <div class="note two">Video · Motion · Graphics</div>
+            <div class="scribble"></div>
+          </div>
+        </div>
+      </section>
+      <div class="marquee" aria-hidden="true">
+        <div class="track">
+          <div class="marquee-group">
+            <span>Short-form video</span><span>Motion graphics</span
+            ><span>Social media content</span><span>Visual storytelling</span>
+          </div>
+          <div class="marquee-group">
+            <span>Short-form video</span><span>Motion graphics</span
+            ><span>Social media content</span><span>Visual storytelling</span>
+          </div>
+        </div>
+      </div>
+      <section class="section" id="about">
+        <div class="shell about-grid">
+          <div class="sticky reveal">
+            <p class="eyebrow">A little about me</p>
+            <h2 class="title">
+              Purpose in every <span class="accent">frame.</span>
+            </h2>
+          </div>
+          <div class="about-copy reveal">
+            <p>
+              I create attention-grabbing edits through strong pacing,
+              captions, B-roll, motion graphics, transitions, audio editing,
+              and thoughtful post-production.
+            </p>
+            <p>
+              I work across different content styles while keeping every video
+              clean, engaging, and ready for the platform and audience it was
+              made for.
+            </p>
+            <p>
+              Alongside my creative work, I study Nursing at Our Lady of Fatima
+              University–Quezon City, with an expected completion in 2028.
+            </p>
+            <div class="value">
+              <div class="num">01</div>
+              <div>
+                <h3>Strong pacing</h3>
+                <p>
+                  Every cut supports the message, keeps attention moving, and
+                  gives the story a clear rhythm.
+                </p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="num">02</div>
+              <div>
+                <h3>Platform-ready storytelling</h3>
+                <p>
+                  Reels, TikToks, YouTube Shorts, and promotional content are
+                  shaped for how each audience watches.
+                </p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="num">03</div>
+              <div>
+                <h3>Polished post-production</h3>
+                <p>
+                  Captions, B-roll, motion, sound, transitions, and color work
+                  together to make the final edit feel complete.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section work" id="work">
+        <div class="shell">
+          <div class="work-head reveal">
+            <div>
+              <p class="eyebrow">Selected experience</p>
+              <h2 class="title">
+                Work shaped for <span class="accent">every screen.</span>
+              </h2>
+            </div>
+            <p class="intro">
+              Experience spanning freelance social content, agency projects,
+              church multimedia, and graphic design.
+            </p>
+          </div>
+          <div class="filters reveal" role="group" aria-label="Filter experience">
+            <button class="filter active" data-filter="all" aria-pressed="true">
+              All work</button
+            ><button class="filter" data-filter="video" aria-pressed="false">
+              Video</button
+            ><button class="filter" data-filter="motion" aria-pressed="false">
+              Motion</button
+            ><button class="filter" data-filter="design" aria-pressed="false">
+              Graphics
+            </button>
+          </div>
+          <div class="projects">
+            <article class="project reveal" data-category="video">
+              <button
+                data-project="freelance"
+                aria-label="View freelance video editing experience"
+              >
+                <div class="media">
+                  <img
+                    src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&amp;fit=crop&amp;w=1200&amp;q=86"
+                    alt="Video content displayed on a mobile phone"
+                    loading="lazy"
+                  /><span class="index">01</span>
+                </div>
+                <div class="project-meta">
+                  <div>
+                    <h3>Freelance Video Editing</h3>
+                    <p>Short-form video · Social content</p>
+                  </div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+            <article class="project reveal" data-category="video motion">
+              <button
+                data-project="elite"
+                aria-label="View Elite Creatives Agency experience"
+              >
+                <div class="media">
+                  <img
+                    src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&amp;fit=crop&amp;w=1000&amp;q=86"
+                    alt="Creative visual content arranged for production"
+                    loading="lazy"
+                  /><span class="index">02</span>
+                </div>
+                <div class="project-meta">
+                  <div>
+                    <h3>Elite Creatives Agency</h3>
+                    <p>Video editing · 2024–2026</p>
+                  </div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+            <article class="project reveal" data-category="motion">
+              <button
+                data-project="church"
+                aria-label="View church multimedia and video editing experience"
+              >
+                <div class="media">
+                  <img
+                    src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&amp;fit=crop&amp;w=1000&amp;q=86"
+                    alt="Visual media prepared for an event"
+                    loading="lazy"
+                  /><span class="index">03</span>
+                </div>
+                <div class="project-meta">
+                  <div>
+                    <h3>Church Multimedia</h3>
+                    <p>Live events · Motion graphics</p>
+                  </div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+            <article class="project reveal" data-category="design">
+              <button
+                data-project="graphics"
+                aria-label="View graphic design and digital visuals experience"
+              >
+                <div class="media">
+                  <img
+                    src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&amp;fit=crop&amp;w=1200&amp;q=86"
+                    alt="Creative workspace for digital visual design"
+                    loading="lazy"
+                  /><span class="index">04</span>
+                </div>
+                <div class="project-meta">
+                  <div>
+                    <h3>Digital Visuals</h3>
+                    <p>Graphic design · Social media</p>
+                  </div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="section" id="capabilities">
+        <div class="shell cap-grid">
+          <div class="reveal">
+            <p class="eyebrow">What I bring</p>
+            <h2 class="title">
+              From raw footage to polished
+              <span class="accent">content.</span>
+            </h2>
+            <div class="cap-list">
+              <div class="capability">
+                <strong>01</strong><strong>Short-form video editing</strong
+                ><span>Reels · TikTok · YouTube Shorts</span>
+              </div>
+              <div class="capability">
+                <strong>02</strong><strong>Motion & post-production</strong
+                ><span>Captions · B-roll · Audio · Effects</span>
+              </div>
+              <div class="capability">
+                <strong>03</strong><strong>Graphic design</strong
+                ><span>Social visuals · Promotions · Canva</span>
+              </div>
+            </div>
+          </div>
+          <div class="reveal">
+            <div class="tools">
+              <h3>Core editing skills</h3>
+              <div class="tool-cloud">
+                <span>Short-form editing</span><span>Captions</span
+                ><span>B-roll</span><span>Motion graphics</span
+                ><span>Transitions</span><span>Visual effects</span
+                ><span>Audio editing</span><span>Sound effects</span
+                ><span>Color correction</span><span>Canva</span>
+              </div>
+            </div>
+            <div class="process">
+              <div>
+                <small>2019–PRESENT</small>
+                <h4>Church Multimedia</h4>
+                <p>Video editing for services, events, live streams, and social media.</p>
+              </div>
+              <div>
+                <small>JUNE 2022–PRESENT</small>
+                <h4>Freelance Editor</h4>
+                <p>Short-form videos, promotional content, and digital graphics.</p>
+              </div>
+              <div>
+                <small>2024–2026</small>
+                <h4>Elite Creatives Agency</h4>
+                <p>Social edits delivered to client requirements and deadlines.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="contact" id="contact">
+        <div class="shell">
+          <div class="contact-card reveal">
+            <h2>Have footage? Let’s shape the story.</h2>
+            <p>
+              Based in CSJDM, Bulacan, Philippines. Tell me about your video,
+              audience, platform, and deadline. Email me or call
+              +63 936-096-5322—I’d love to hear about it.
+            </p>
+            <div class="actions">
+              <a
+                class="button primary"
+                href="mailto:itsjeascelle@gmail.com?subject=Video%20editing%20inquiry"
+                >itsjeascelle@gmail.com <span class="arrow">↗</span></a
+              ><a
+                class="button secondary"
+                href="Ryza%20mae.pdf"
+                target="_blank"
+                >View portfolio PDF</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="shell footer">
+        <span>© <span id="year"></span> Jeascelle Papa. Edited with care.</span
+        ><a href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+    <div class="modal" id="modal" hidden>
+      <div
+        class="panel"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-title"
+        tabindex="-1"
+      >
+        <button class="close" aria-label="Close experience details">×</button
+        ><img class="modal-image" id="modal-image" src="" alt="" />
+        <div class="modal-body">
+          <p class="kicker" id="modal-kicker"></p>
+          <h3 id="modal-title"></h3>
+          <p class="description" id="modal-description"></p>
+          <div class="tags" id="modal-tags"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const projects = {
+        freelance: {
+          title: "Freelance Video Editing",
+          kicker: "June 2022–Present · Video & graphics",
+          image:
+            "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1400&q=88",
+          alt: "Video content displayed on a mobile phone",
+          description:
+            "Editing short-form videos, Reels, TikToks, promotional content, and social media visuals while managing projects from raw footage through final output.",
+          tags: ["Short-form video", "Reels", "TikTok", "Graphic design"],
+        },
+        elite: {
+          title: "Elite Creatives Agency",
+          kicker: "2024–2026 · Video editing",
+          image:
+            "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1400&q=88",
+          alt: "Creative visual content arranged for production",
+          description:
+            "Created engaging short-form and social media edits using captions, B-roll, transitions, motion graphics, and audio while meeting client requirements and deadlines.",
+          tags: [
+            "Social content",
+            "Captions",
+            "B-roll",
+            "Motion graphics",
+          ],
+        },
+        church: {
+          title: "Church Multimedia",
+          kicker: "2019–Present · Video editor",
+          image:
+            "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=1400&q=88",
+          alt: "Visual media prepared for an event",
+          description:
+            "Editing worship services, events, live streams, and social media videos, including audio synchronization, lyric slides, announcements, and post-production.",
+          tags: [
+            "Live streams",
+            "Audio syncing",
+            "Lyric slides",
+            "Post-production",
+          ],
+        },
+        graphics: {
+          title: "Digital Visuals",
+          kicker: "Graphic design · Social media",
+          image:
+            "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1400&q=88",
+          alt: "Creative workspace for digital visual design",
+          description:
+            "Creating graphics and platform-ready digital visuals for promotional and social media use, supported by clean composition and visual storytelling.",
+          tags: ["Graphic design", "Canva", "Social media", "Promotions"],
+        },
+      };
+      const header = document.querySelector("#header"),
+        menu = document.querySelector("#menu"),
+        links = document.querySelector("#links"),
+        modal = document.querySelector("#modal"),
+        panel = modal.querySelector(".panel");
+      let lastFocused;
+      const closeMenu = () => {
+        links.classList.remove("open");
+        menu.setAttribute("aria-expanded", "false");
+        menu.setAttribute("aria-label", "Open menu");
+        document.body.classList.remove("menu-open");
+      };
+      menu.addEventListener("click", () => {
+        const open = menu.getAttribute("aria-expanded") === "true";
+        menu.setAttribute("aria-expanded", String(!open));
+        menu.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+        links.classList.toggle("open", !open);
+        document.body.classList.toggle("menu-open", !open);
+      });
+      links
+        .querySelectorAll("a")
+        .forEach((a) => a.addEventListener("click", closeMenu));
+      addEventListener(
+        "scroll",
+        () => header.classList.toggle("scrolled", scrollY > 24),
+        { passive: true },
+      );
+      document.querySelectorAll(".filter").forEach((btn) =>
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".filter").forEach((b) => {
+            b.classList.toggle("active", b === btn);
+            b.setAttribute("aria-pressed", String(b === btn));
+          });
+          document
+            .querySelectorAll(".project")
+            .forEach(
+              (p) =>
+                (p.hidden =
+                  btn.dataset.filter !== "all" &&
+                  !p.dataset.category
+                    .split(" ")
+                    .includes(btn.dataset.filter)),
+            );
+        }),
+      );
+      function openProject(key, trigger) {
+        const p = projects[key];
+        if (!p) return;
+        lastFocused = trigger;
+        document.querySelector("#modal-title").textContent = p.title;
+        document.querySelector("#modal-kicker").textContent = p.kicker;
+        document.querySelector("#modal-description").textContent =
+          p.description;
+        const image = document.querySelector("#modal-image");
+        image.src = p.image;
+        image.alt = p.alt;
+        document.querySelector("#modal-tags").innerHTML = p.tags
+          .map((t) => `<span>${t}</span>`)
+          .join("");
+        modal.hidden = false;
+        document.body.classList.add("modal-open");
+        panel.focus();
+      }
+      function closeModal() {
+        if (modal.hidden) return;
+        modal.hidden = true;
+        document.body.classList.remove("modal-open");
+        lastFocused?.focus();
+      }
+      document
+        .querySelectorAll(".project button")
+        .forEach((b) =>
+          b.addEventListener("click", () => openProject(b.dataset.project, b)),
+        );
+      document.querySelector(".close").addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeMenu();
+          closeModal();
+        }
+        if (e.key === "Tab" && !modal.hidden) {
+          const f = modal.querySelectorAll(
+              'button,[href],[tabindex]:not([tabindex="-1"])',
+            ),
+            first = f[0],
+            last = f[f.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      });
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (es) =>
+            es.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                observer.unobserve(e.target);
+              }
+            }),
+          { threshold: 0.12 },
+        );
+        document
+          .querySelectorAll(".reveal")
+          .forEach((e) => observer.observe(e));
+      } else
+        document
+          .querySelectorAll(".reveal")
+          .forEach((e) => e.classList.add("visible"));
+      document.querySelector("#year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
