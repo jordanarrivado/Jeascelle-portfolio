@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta
       name="description"
-      content="Jeascelle Papa is a video editor and graphic designer creating engaging short-form videos, social media content, motion graphics, and digital visuals."
+      content="Jeascelle Papa is a video editor and AI creative creating performance ads, UGC, commercial content, AI video, real estate edits, cinematic work, and design."
     />
     <meta name="theme-color" content="#f4f0e8" />
-    <title>Jeascelle Papa — Video Editor & Graphic Designer</title>
+    <title>Jeascelle Papa — Video Editor & AI Creative</title>
     <style>
       :root {
         --ink: #171719;
@@ -517,14 +517,34 @@
         border-radius: var(--radius);
         background: #29282d;
       }
-      .media img {
+      .media img,
+      .media video {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
       }
-      .project button:hover img {
+      .media video {
+        display: block;
+        background: #171719;
+      }
+      .project button:hover img,
+      .project button:hover video {
         transform: scale(1.045);
+      }
+      .play-badge {
+        position: absolute;
+        right: 16px;
+        bottom: 16px;
+        display: grid;
+        width: 48px;
+        height: 48px;
+        place-items: center;
+        color: var(--ink);
+        background: var(--lime);
+        border-radius: 50%;
+        box-shadow: 0 8px 24px #0005;
+        font-size: 0.82rem;
       }
       .index {
         position: absolute;
@@ -737,6 +757,17 @@
         aspect-ratio: 16/8;
         object-fit: cover;
       }
+      .modal-media {
+        display: block;
+        width: 100%;
+        max-height: 64vh;
+        background: #09090a;
+        object-fit: contain;
+      }
+      .modal-media[hidden],
+      .modal-image[hidden] {
+        display: none;
+      }
       .modal-body {
         padding: clamp(26px, 5vw, 50px);
       }
@@ -905,6 +936,249 @@
           transform: none;
         }
       }
+
+      /* Hybrid additions: donor hero/showreel + numbered section language, original palette retained */
+      .hero-role {
+        margin: 0 0 16px;
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .hero-role span {
+        color: var(--purple);
+        margin: 0 7px;
+      }
+      .showreel-card {
+        position: absolute;
+        z-index: 4;
+        right: -18px;
+        bottom: -8px;
+        width: min(340px, 72%);
+        padding: 12px;
+        border: 1px solid var(--ink);
+        border-radius: 22px;
+        background: var(--surface);
+        box-shadow: 7px 8px 0 var(--ink);
+        transform: rotate(-2deg);
+      }
+      .reel-preview {
+        position: relative;
+        display: grid;
+        min-height: 165px;
+        place-items: center;
+        overflow: hidden;
+        border-radius: 15px;
+        background: linear-gradient(135deg, var(--ink), #382b54);
+        color: #fff;
+      }
+      .reel-preview video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.72;
+      }
+      .reel-preview:after {
+        content: "SHOWREEL / 2026";
+        position: absolute;
+        left: 14px;
+        bottom: 12px;
+        font-size: 0.69rem;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+      }
+      .play-reel {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        width: 62px;
+        height: 62px;
+        place-items: center;
+        border: 1px solid #ffffff80;
+        border-radius: 50%;
+        color: var(--ink);
+        background: var(--lime);
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .play-reel:hover {
+        transform: scale(1.08);
+      }
+      .reel-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 10px 2px 0;
+      }
+      .reel-tags span {
+        font-size: 0.66rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      .document-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .document-links a {
+        padding: 9px 13px;
+        border: 1px solid currentColor;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        font-weight: 800;
+      }
+      .section-no {
+        display: block;
+        margin-bottom: 10px;
+        color: var(--purple);
+        font-size: 0.75rem;
+        font-weight: 850;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+      .work .section-no {
+        color: var(--lime);
+      }
+      .about-panel {
+        margin-top: 28px;
+        padding: 30px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--lilac);
+        box-shadow: var(--shadow);
+        transform: rotate(1deg);
+      }
+      .about-panel .big-type {
+        font-size: clamp(2.6rem, 5vw, 5rem);
+        font-weight: 900;
+        line-height: 0.84;
+        letter-spacing: -0.07em;
+      }
+      .about-panel .big-type em {
+        color: var(--purple);
+        font-family: Georgia, serif;
+        font-weight: 500;
+      }
+      .mini-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 24px;
+      }
+      .mini-grid span {
+        padding-top: 9px;
+        border-top: 1px solid #1717192e;
+        font-size: 0.76rem;
+        font-weight: 750;
+      }
+      .experience-block {
+        margin-top: 34px;
+      }
+      .experience-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 30px;
+        padding: 25px 0;
+        border-top: 1px solid var(--line);
+      }
+      .experience-row:last-child {
+        border-bottom: 1px solid var(--line);
+      }
+      .experience-row b {
+        color: var(--purple);
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+      }
+      .experience-row h3 {
+        margin: 5px 0;
+      }
+      .experience-row p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .experience-row > span {
+        align-self: center;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+      .cap-cards {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 34px;
+      }
+      .cap-card {
+        padding: 24px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: var(--surface);
+      }
+      .cap-card b {
+        color: var(--purple);
+      }
+      .cap-card h3 {
+        margin: 14px 0 7px;
+      }
+      .cap-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.85rem;
+      }
+      .reel-modal-video {
+        width: 100%;
+        display: block;
+        background: #000;
+        aspect-ratio: 16/9;
+      }
+      .reel-placeholder {
+        display: grid;
+        min-height: 360px;
+        place-items: center;
+        padding: 40px;
+        text-align: center;
+        background: var(--ink);
+        color: #fff;
+      }
+      .reel-placeholder strong {
+        display: block;
+        font-size: 1.6rem;
+      }
+      .reel-placeholder span {
+        display: block;
+        margin-top: 8px;
+        color: #c9c3d2;
+      }
+      @media (max-width: 900px) {
+        .showreel-card {
+          right: 0;
+        }
+        .cap-cards {
+          grid-template-columns: 1fr;
+        }
+      }
+      @media (max-width: 640px) {
+        .showreel-card {
+          position: relative;
+          right: auto;
+          bottom: auto;
+          width: 88%;
+          margin: -80px auto 0;
+        }
+        .mini-grid {
+          grid-template-columns: 1fr;
+        }
+        .experience-row {
+          grid-template-columns: 1fr;
+        }
+        .experience-row > span {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -915,7 +1189,7 @@
           ><span class="mark">J</span><span>Jeascelle.</span></a
         >
         <nav class="links" id="links" aria-label="Main navigation">
-          <a href="#about">About</a><a href="#work">Experience</a
+          <a href="#about">About</a><a href="#work">Work</a
           ><a href="#capabilities">Capabilities</a
           ><a class="nav-cta" href="#contact">Let’s talk ↗</a>
         </nav>
@@ -935,21 +1209,28 @@
       <section class="hero" id="top">
         <div class="shell hero-grid">
           <div class="reveal">
+            <div class="hero-role">VIDEO EDITOR <span>×</span> AI CREATIVE</div>
             <div class="available"><i></i> Available for select projects</div>
             <h1>Stories, made <span>impossible to skip.</span></h1>
             <p class="hero-copy">
-              I’m Jeascelle Papa, a video editor and graphic designer creating
-              engaging short-form videos, social content, promotional edits,
-              and platform-ready digital visuals.
+              I create performance-driven edits, scroll-stopping ads, and
+              AI-powered visuals for brands that want attention and conversions.
             </p>
             <div class="actions">
               <a class="button primary" href="#work"
-                >See experience <span class="arrow">↗</span></a
+                >View selected work <span class="arrow">↘</span></a
+              ><a class="button secondary" href="#contact"
+                >Let’s work together <span class="arrow">↗</span></a
+              >
+            </div>
+            <div class="document-links" aria-label="Career documents">
+              <a href="assets/RESUME.pdf" target="_blank" rel="noopener"
+                >View résumé ↗</a
               ><a
-                class="button secondary"
-                href="Ryza%20mae.pdf"
+                href="assets/COVER%20LETTER.pdf"
                 target="_blank"
-                >View portfolio PDF ↓</a
+                rel="noopener"
+                >View cover letter ↗</a
               >
             </div>
           </div>
@@ -965,6 +1246,30 @@
             <div class="note one">Edit with<br />energy + purpose</div>
             <div class="note two">Video · Motion · Graphics</div>
             <div class="scribble"></div>
+            <div class="showreel-card">
+              <div class="reel-preview">
+                <video
+                  src="assets/Videos/BMW%20E46.mov"
+                  muted
+                  loop
+                  playsinline
+                  preload="metadata"
+                  aria-hidden="true"
+                ></video>
+                <button
+                  class="play-reel"
+                  id="showreelPlay"
+                  type="button"
+                  aria-label="Play showreel"
+                >
+                  ▶
+                </button>
+              </div>
+              <div class="reel-tags">
+                <span>DR Ads</span><span>UGC</span><span>AI Video</span
+                ><span>Commercial</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -980,9 +1285,115 @@
           </div>
         </div>
       </div>
+      <section class="section work" id="work">
+        <div class="shell">
+          <div class="work-head reveal">
+            <div>
+              <span class="section-no">01 / SELECTED WORK</span>
+              <p class="eyebrow">Portfolio</p>
+              <h2 class="title">
+                Work that earns the <span class="accent">second look.</span>
+              </h2>
+            </div>
+            <p class="intro">
+              Performance creative, storytelling, and polished post-production
+              across paid social, brands, real estate, and AI-first campaigns.
+            </p>
+          </div>
+          <div
+            class="filters reveal"
+            role="group"
+            aria-label="Filter portfolio"
+          >
+            <button class="filter active" data-filter="all" aria-pressed="true">
+              All work</button
+            ><button class="filter" data-filter="dr" aria-pressed="false">
+              DR Ads</button
+            ><button class="filter" data-filter="ugc" aria-pressed="false">
+              UGC</button
+            ><button
+              class="filter"
+              data-filter="commercial"
+              aria-pressed="false"
+            >
+              Commercial</button
+            ><button
+              class="filter"
+              data-filter="cinematic"
+              aria-pressed="false"
+            >
+              Cinematic
+            </button>
+          </div>
+          <div class="projects">
+            <article class="project reveal" data-category="ugc commercial dr">
+              <button data-project="lume" aria-label="Play LUMÉ UGC project">
+                <div class="media">
+                  <video src="assets/Videos/UGC-LUME.mov" muted playsinline preload="metadata" aria-hidden="true"></video>
+                  <span class="index">01</span><span class="play-badge">▶</span>
+                </div>
+                <div class="project-meta">
+                  <div><h3>LUMÉ UGC</h3><p>UGC · Beauty · Product storytelling</p></div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+            <article class="project reveal" data-category="ugc commercial">
+              <button data-project="elaracrafts" aria-label="Play Elaracrafts UGC project">
+                <div class="media">
+                  <video src="assets/Videos/ELARACRAFTS-UGC.mp4" muted playsinline preload="metadata" aria-hidden="true"></video>
+                  <span class="index">02</span><span class="play-badge">▶</span>
+                </div>
+                <div class="project-meta">
+                  <div><h3>Elaracrafts UGC</h3><p>UGC · Handmade brand · Social</p></div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+            <article class="project reveal" data-category="commercial cinematic">
+              <button data-project="patek" aria-label="Play Patek Philippe Nautilus project">
+                <div class="media">
+                  <video src="assets/Videos/Patek%20Philippe%20Nautilus.mov" muted playsinline preload="metadata" aria-hidden="true"></video>
+                  <span class="index">03</span><span class="play-badge">▶</span>
+                </div>
+                <div class="project-meta">
+                  <div><h3>Patek Philippe Nautilus</h3><p>Luxury · Product film · Spec edit</p></div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+            <article class="project reveal" data-category="commercial cinematic">
+              <button data-project="bmw" aria-label="Play BMW E46 project">
+                <div class="media">
+                  <video src="assets/Videos/BMW%20E46.mov" muted playsinline preload="metadata" aria-hidden="true"></video>
+                  <span class="index">04</span><span class="play-badge">▶</span>
+                </div>
+                <div class="project-meta">
+                  <div><h3>BMW E46</h3><p>Automotive · Cinematic · Spec edit</p></div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+            <article class="project reveal" data-category="dr commercial">
+              <button data-project="dinosaur" aria-label="Play Dinosaur Night Light project">
+                <div class="media">
+                  <video src="assets/Videos/Dinosaur%20Night%20Light.mov" muted playsinline preload="metadata" aria-hidden="true"></video>
+                  <span class="index">05</span><span class="play-badge">▶</span>
+                </div>
+                <div class="project-meta">
+                  <div><h3>Dinosaur Night Light</h3><p>Product ad · E-commerce · Social</p></div>
+                  <span class="project-arrow">↗</span>
+                </div>
+              </button>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="section" id="about">
         <div class="shell about-grid">
           <div class="sticky reveal">
+            <span class="section-no">02 / ABOUT</span>
             <p class="eyebrow">A little about me</p>
             <h2 class="title">
               Purpose in every <span class="accent">frame.</span>
@@ -990,18 +1401,18 @@
           </div>
           <div class="about-copy reveal">
             <p>
-              I create attention-grabbing edits through strong pacing,
-              captions, B-roll, motion graphics, transitions, audio editing,
-              and thoughtful post-production.
+              I’m a Video Editor & AI Creative focused on creating engaging,
+              performance-driven content for brands and digital platforms.
             </p>
             <p>
-              I work across different content styles while keeping every video
-              clean, engaging, and ready for the platform and audience it was
-              made for.
+              My work spans direct-response and UGC ads, talking-head content,
+              commercial campaigns, real estate videos, AI-generated visuals,
+              and cinematic edits.
             </p>
             <p>
-              Alongside my creative work, I study Nursing at Our Lady of Fatima
-              University–Quezon City, with an expected completion in 2028.
+              Alongside my creative work, I’m pursuing Nursing at Our Lady of
+              Fatima University–Quezon City, giving me additional familiarity
+              with healthcare and medical-related content.
             </p>
             <div class="value">
               <div class="num">01</div>
@@ -1033,172 +1444,102 @@
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <section class="section work" id="work">
-        <div class="shell">
-          <div class="work-head reveal">
-            <div>
-              <p class="eyebrow">Selected experience</p>
-              <h2 class="title">
-                Work shaped for <span class="accent">every screen.</span>
-              </h2>
+            <div class="about-panel">
+              <div class="big-type">EDIT<br />WITH<br /><em>INTENT.</em></div>
+              <div class="mini-grid">
+                <span>Based in the Philippines</span
+                ><span>Remote worldwide</span><span>English / Filipino</span
+                ><span>Creative + collaborative</span>
+              </div>
             </div>
-            <p class="intro">
-              Experience spanning freelance social content, agency projects,
-              church multimedia, and graphic design.
-            </p>
-          </div>
-          <div class="filters reveal" role="group" aria-label="Filter experience">
-            <button class="filter active" data-filter="all" aria-pressed="true">
-              All work</button
-            ><button class="filter" data-filter="video" aria-pressed="false">
-              Video</button
-            ><button class="filter" data-filter="motion" aria-pressed="false">
-              Motion</button
-            ><button class="filter" data-filter="design" aria-pressed="false">
-              Graphics
-            </button>
-          </div>
-          <div class="projects">
-            <article class="project reveal" data-category="video">
-              <button
-                data-project="freelance"
-                aria-label="View freelance video editing experience"
-              >
-                <div class="media">
-                  <img
-                    src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&amp;fit=crop&amp;w=1200&amp;q=86"
-                    alt="Video content displayed on a mobile phone"
-                    loading="lazy"
-                  /><span class="index">01</span>
-                </div>
-                <div class="project-meta">
-                  <div>
-                    <h3>Freelance Video Editing</h3>
-                    <p>Short-form video · Social content</p>
-                  </div>
-                  <span class="project-arrow">↗</span>
-                </div>
-              </button>
-            </article>
-            <article class="project reveal" data-category="video motion">
-              <button
-                data-project="elite"
-                aria-label="View Elite Creatives Agency experience"
-              >
-                <div class="media">
-                  <img
-                    src="https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&amp;fit=crop&amp;w=1000&amp;q=86"
-                    alt="Creative visual content arranged for production"
-                    loading="lazy"
-                  /><span class="index">02</span>
-                </div>
-                <div class="project-meta">
-                  <div>
-                    <h3>Elite Creatives Agency</h3>
-                    <p>Video editing · 2024–2026</p>
-                  </div>
-                  <span class="project-arrow">↗</span>
-                </div>
-              </button>
-            </article>
-            <article class="project reveal" data-category="motion">
-              <button
-                data-project="church"
-                aria-label="View church multimedia and video editing experience"
-              >
-                <div class="media">
-                  <img
-                    src="https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&amp;fit=crop&amp;w=1000&amp;q=86"
-                    alt="Visual media prepared for an event"
-                    loading="lazy"
-                  /><span class="index">03</span>
-                </div>
-                <div class="project-meta">
-                  <div>
-                    <h3>Church Multimedia</h3>
-                    <p>Live events · Motion graphics</p>
-                  </div>
-                  <span class="project-arrow">↗</span>
-                </div>
-              </button>
-            </article>
-            <article class="project reveal" data-category="design">
-              <button
-                data-project="graphics"
-                aria-label="View graphic design and digital visuals experience"
-              >
-                <div class="media">
-                  <img
-                    src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&amp;fit=crop&amp;w=1200&amp;q=86"
-                    alt="Creative workspace for digital visual design"
-                    loading="lazy"
-                  /><span class="index">04</span>
-                </div>
-                <div class="project-meta">
-                  <div>
-                    <h3>Digital Visuals</h3>
-                    <p>Graphic design · Social media</p>
-                  </div>
-                  <span class="project-arrow">↗</span>
-                </div>
-              </button>
-            </article>
           </div>
         </div>
       </section>
+
       <section class="section" id="capabilities">
-        <div class="shell cap-grid">
-          <div class="reveal">
-            <p class="eyebrow">What I bring</p>
-            <h2 class="title">
-              From raw footage to polished
-              <span class="accent">content.</span>
-            </h2>
-            <div class="cap-list">
-              <div class="capability">
-                <strong>01</strong><strong>Short-form video editing</strong
-                ><span>Reels · TikTok · YouTube Shorts</span>
+        <div class="shell">
+          <span class="section-no">03 / EXPERIENCE</span>
+          <p class="eyebrow">Experience & craft</p>
+          <h2 class="title">
+            Built through <span class="accent">real creative work.</span>
+          </h2>
+          <div class="experience-block reveal">
+            <div class="experience-row">
+              <div>
+                <b>2023 — PRESENT</b>
+                <h3>Church Multimedia & Video Editor</h3>
+                <p>
+                  Video editing, event visuals, social content, and multimedia
+                  production.
+                </p>
               </div>
-              <div class="capability">
-                <strong>02</strong><strong>Motion & post-production</strong
-                ><span>Captions · B-roll · Audio · Effects</span>
+              <span>Creative / Multimedia</span>
+            </div>
+            <div class="experience-row">
+              <div>
+                <b>2022 — PRESENT</b>
+                <h3>Freelance Video Editor & Graphic Designer</h3>
+                <p>
+                  Short-form content, ads, brand visuals, AI-assisted
+                  production, and client creative.
+                </p>
               </div>
-              <div class="capability">
-                <strong>03</strong><strong>Graphic design</strong
-                ><span>Social visuals · Promotions · Canva</span>
+              <span>Freelance</span>
+            </div>
+            <div class="experience-row">
+              <div>
+                <b>TRAINING</b>
+                <h3>Elite Creatives</h3>
+                <p>Hands-on creative training and production experience.</p>
               </div>
+              <span>Creative Training</span>
             </div>
           </div>
-          <div class="reveal">
-            <div class="tools">
-              <h3>Core editing skills</h3>
-              <div class="tool-cloud">
-                <span>Short-form editing</span><span>Captions</span
-                ><span>B-roll</span><span>Motion graphics</span
-                ><span>Transitions</span><span>Visual effects</span
-                ><span>Audio editing</span><span>Sound effects</span
-                ><span>Color correction</span><span>Canva</span>
-              </div>
-            </div>
-            <div class="process">
-              <div>
-                <small>2019–PRESENT</small>
-                <h4>Church Multimedia</h4>
-                <p>Video editing for services, events, live streams, and social media.</p>
-              </div>
-              <div>
-                <small>JUNE 2022–PRESENT</small>
-                <h4>Freelance Editor</h4>
-                <p>Short-form videos, promotional content, and digital graphics.</p>
-              </div>
-              <div>
-                <small>2024–2026</small>
-                <h4>Elite Creatives Agency</h4>
-                <p>Social edits delivered to client requirements and deadlines.</p>
-              </div>
+          <div style="height: 90px"></div>
+          <span class="section-no">04 / CAPABILITIES</span>
+          <p class="eyebrow">What I bring</p>
+          <h2 class="title">
+            What I bring to <span class="accent">the timeline.</span>
+          </h2>
+          <div class="cap-cards reveal">
+            <article class="cap-card">
+              <b>01</b>
+              <h3>Performance Creative</h3>
+              <p>
+                Direct Response · UGC · Hook Variations · Meta Ads · E-commerce
+              </p>
+            </article>
+            <article class="cap-card">
+              <b>02</b>
+              <h3>Editing & Post</h3>
+              <p>
+                Talking Head · Podcast · Short-form · B-roll · Captions · Sound
+                Design · Motion
+              </p>
+            </article>
+            <article class="cap-card">
+              <b>03</b>
+              <h3>AI Creative</h3>
+              <p>
+                AI Video · AI Animation · AI Images · AI Voice · Character
+                Consistency
+              </p>
+            </article>
+            <article class="cap-card">
+              <b>04</b>
+              <h3>Design</h3>
+              <p>
+                Static Ads · Social Creatives · Thumbnails · Promotional
+                Graphics
+              </p>
+            </article>
+          </div>
+          <div class="tools reveal" style="margin-top: 26px; transform: none">
+            <h3>Tools I work with</h3>
+            <div class="tool-cloud">
+              <span>CapCut</span><span>Canva</span><span>Veo / Flow</span
+              ><span>Kling</span><span>Seedance</span><span>ElevenLabs</span
+              ><span>Higgsfield</span><span>Leonardo AI</span>
             </div>
           </div>
         </div>
@@ -1206,24 +1547,27 @@
       <section class="contact" id="contact">
         <div class="shell">
           <div class="contact-card reveal">
-            <h2>Have footage? Let’s shape the story.</h2>
+            <p class="eyebrow">05 / CONTACT</p>
+            <h2>Have a project?<br /><em>Let's make it move.</em></h2>
             <p>
-              Based in CSJDM, Bulacan, Philippines. Tell me about your video,
-              audience, platform, and deadline. Email me or call
-              +63 936-096-5322—I’d love to hear about it.
+              Available for freelance, remote creative work, and long-term
+              collaborations.
             </p>
             <div class="actions">
+              <a class="button primary" href="mailto:itsjeascelle@gmail.com"
+                >Email me <span class="arrow">↗</span></a
+              >
               <a
-                class="button primary"
-                href="mailto:itsjeascelle@gmail.com?subject=Video%20editing%20inquiry"
-                >itsjeascelle@gmail.com <span class="arrow">↗</span></a
-              ><a
                 class="button secondary"
-                href="Ryza%20mae.pdf"
+                href="https://wa.me/639360965322"
                 target="_blank"
-                >View portfolio PDF</a
+                rel="noopener"
+                >WhatsApp <span class="arrow">↗</span></a
               >
             </div>
+            <p class="contact-email">
+              Prefer email? <strong>itsjeascelle@gmail.com</strong>
+            </p>
           </div>
         </div>
       </section>
@@ -1243,7 +1587,15 @@
         tabindex="-1"
       >
         <button class="close" aria-label="Close experience details">×</button
-        ><img class="modal-image" id="modal-image" src="" alt="" />
+        ><video
+          class="modal-media"
+          id="modal-video"
+          controls
+          playsinline
+          preload="metadata"
+          hidden
+        ></video
+        ><img class="modal-image" id="modal-image" src="" alt="" hidden />
         <div class="modal-body">
           <p class="kicker" id="modal-kicker"></p>
           <h3 id="modal-title"></h3>
@@ -1254,55 +1606,45 @@
     </div>
     <script>
       const projects = {
-        freelance: {
-          title: "Freelance Video Editing",
-          kicker: "June 2022–Present · Video & graphics",
-          image:
-            "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1400&q=88",
-          alt: "Video content displayed on a mobile phone",
+        lume: {
+          title: "LUMÉ UGC",
+          kicker: "UGC · Beauty · Product storytelling",
+          video: "assets/Videos/UGC-LUME.mov",
           description:
-            "Editing short-form videos, Reels, TikToks, promotional content, and social media visuals while managing projects from raw footage through final output.",
-          tags: ["Short-form video", "Reels", "TikTok", "Graphic design"],
+            "A creator-style beauty edit shaped around clear product storytelling, polished pacing, and a social-first presentation.",
+          tags: ["UGC", "Beauty", "Product Video", "Social"],
         },
-        elite: {
-          title: "Elite Creatives Agency",
-          kicker: "2024–2026 · Video editing",
-          image:
-            "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=1400&q=88",
-          alt: "Creative visual content arranged for production",
+        elaracrafts: {
+          title: "Elaracrafts UGC",
+          kicker: "UGC · Handmade brand · Social",
+          video: "assets/Videos/ELARACRAFTS-UGC.mp4",
           description:
-            "Created engaging short-form and social media edits using captions, B-roll, transitions, motion graphics, and audio while meeting client requirements and deadlines.",
-          tags: [
-            "Social content",
-            "Captions",
-            "B-roll",
-            "Motion graphics",
-          ],
+            "An approachable UGC edit for a handmade brand, combining product detail, authentic presentation, and platform-ready pacing.",
+          tags: ["UGC", "Handmade", "Brand Content", "Social"],
         },
-        church: {
-          title: "Church Multimedia",
-          kicker: "2019–Present · Video editor",
-          image:
-            "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=1400&q=88",
-          alt: "Visual media prepared for an event",
+        patek: {
+          title: "Patek Philippe Nautilus",
+          kicker: "Luxury · Product film · Spec edit",
+          video: "assets/Videos/Patek%20Philippe%20Nautilus.mov",
           description:
-            "Editing worship services, events, live streams, and social media videos, including audio synchronization, lyric slides, announcements, and post-production.",
-          tags: [
-            "Live streams",
-            "Audio syncing",
-            "Lyric slides",
-            "Post-production",
-          ],
+            "A cinematic luxury-watch edit built around detail, atmosphere, and premium product presentation. Independent portfolio work; no brand affiliation is implied.",
+          tags: ["Luxury", "Product Film", "Cinematic", "Spec Edit"],
         },
-        graphics: {
-          title: "Digital Visuals",
-          kicker: "Graphic design · Social media",
-          image:
-            "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1400&q=88",
-          alt: "Creative workspace for digital visual design",
+        bmw: {
+          title: "BMW E46",
+          kicker: "Automotive · Cinematic · Spec edit",
+          video: "assets/Videos/BMW%20E46.mov",
           description:
-            "Creating graphics and platform-ready digital visuals for promotional and social media use, supported by clean composition and visual storytelling.",
-          tags: ["Graphic design", "Canva", "Social media", "Promotions"],
+            "An automotive piece using energetic pacing and cinematic treatment to turn the BMW E46 into a character. Independent portfolio work; no brand affiliation is implied.",
+          tags: ["Automotive", "Cinematic", "Sound Design", "Spec Edit"],
+        },
+        dinosaur: {
+          title: "Dinosaur Night Light",
+          kicker: "Product ad · E-commerce · Social",
+          video: "assets/Videos/Dinosaur%20Night%20Light.mov",
+          description:
+            "A product-focused social ad designed to make the night light's visual appeal and giftable character immediately clear.",
+          tags: ["Product Ad", "E-commerce", "Direct Response", "Social"],
         },
       };
       const header = document.querySelector("#header"),
@@ -1344,9 +1686,7 @@
               (p) =>
                 (p.hidden =
                   btn.dataset.filter !== "all" &&
-                  !p.dataset.category
-                    .split(" ")
-                    .includes(btn.dataset.filter)),
+                  !p.dataset.category.split(" ").includes(btn.dataset.filter)),
             );
         }),
       );
@@ -1359,8 +1699,11 @@
         document.querySelector("#modal-description").textContent =
           p.description;
         const image = document.querySelector("#modal-image");
-        image.src = p.image;
-        image.alt = p.alt;
+        const video = document.querySelector("#modal-video");
+        image.hidden = true;
+        image.removeAttribute("src");
+        video.hidden = false;
+        video.src = p.video;
         document.querySelector("#modal-tags").innerHTML = p.tags
           .map((t) => `<span>${t}</span>`)
           .join("");
@@ -1370,6 +1713,10 @@
       }
       function closeModal() {
         if (modal.hidden) return;
+        const video = document.querySelector("#modal-video");
+        video.pause();
+        video.removeAttribute("src");
+        video.load();
         modal.hidden = true;
         document.body.classList.remove("modal-open");
         lastFocused?.focus();
@@ -1379,6 +1726,18 @@
         .forEach((b) =>
           b.addEventListener("click", () => openProject(b.dataset.project, b)),
         );
+      document.querySelectorAll(".project .media video").forEach((video) => {
+        const button = video.closest("button");
+        const preview = () => video.play().catch(() => {});
+        const reset = () => {
+          video.pause();
+          if (video.readyState > 0) video.currentTime = 0;
+        };
+        button.addEventListener("mouseenter", preview);
+        button.addEventListener("mouseleave", reset);
+        button.addEventListener("focus", preview);
+        button.addEventListener("blur", reset);
+      });
       document.querySelector(".close").addEventListener("click", closeModal);
       modal.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
@@ -1421,6 +1780,17 @@
         document
           .querySelectorAll(".reveal")
           .forEach((e) => e.classList.add("visible"));
+      const showreelButton = document.querySelector("#showreelPlay");
+      showreelButton?.addEventListener("click", () => {
+        openProject("bmw", showreelButton);
+      });
+      const reelPreview = document.querySelector(".reel-preview video");
+      document.querySelector(".showreel-card")?.addEventListener("mouseenter", () =>
+        reelPreview?.play().catch(() => {}),
+      );
+      document.querySelector(".showreel-card")?.addEventListener("mouseleave", () =>
+        reelPreview?.pause(),
+      );
       document.querySelector("#year").textContent = new Date().getFullYear();
     </script>
   </body>
